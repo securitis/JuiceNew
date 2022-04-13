@@ -1,17 +1,16 @@
-version: 2.1
+version: '2.1'
 orbs:
   snyk: snyk/snyk@1.1.2
-
 jobs:
   build:
-      docker:
-      - image: cimg/node
-      steps:
+    docker:
+      - image: cimg/node:14.16.0
+    steps:
       - checkout
       - run:
-          command: npm install -q
+          name: Snyk Scan Application files 
+          command: npm install 
       - snyk/scan:
-          token-variable: SNYK_TOKEN                                # use is api token stored in an env variable named other than SNYK_TOKEN
-          severity-threshold: high                                  # only fail if detected high-severity vulnerabilities
-          fail-on-issues: false                                     # don't fail even if issues detected (not recommended!)
-          monitor-on-build: true                                    # create a snapshot of apps dependencies on snyk.io, for continoues monitoring (recommended!)
+          fail-on-issues: true
+          monitor-on-build: false
+workflows: null
