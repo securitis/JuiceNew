@@ -13,4 +13,7 @@ jobs:
       - snyk/scan:
           fail-on-issues: true
           monitor-on-build: false
-workflows: null
+workflows:
+  Snyk Scan:
+    jobs:
+      - build
